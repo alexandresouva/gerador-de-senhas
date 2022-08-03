@@ -1,5 +1,6 @@
 var opcoesSenha;
 var senha = [];
+var arrSorteia = [];
 
 function geraSenha() {
     let tamanhoSenha = document.getElementById('pswLeght').value;
@@ -101,7 +102,8 @@ function verificaCheckbox() {
     opcoesSenha = 0;
 
     if (incluirCaractereEspecial.checked) {
-        opcoesSenha++;
+        arrSorteia.push = sorteiaCaractereEspecial;
+        console.log(arrSorteia)
     }
 
     if (incluirMaiusculas.checked) {
@@ -131,20 +133,25 @@ function algoritmoSenha(){
 
         case 1:
             for (let i = 0; i < senha.length; i++) {
-                while ((x + y) != senha.length){
-                    x = Math.floor(Math.random() * 3) + 1;
-                    y = Math.floor(Math.random() * 20) + 1;
-
-                }
-                console.log(`x = ${x} e y ${y}`);
+                // while ((x + y) != senha.length){
+                //     x = Math.floor(Math.random() * 3) + 1;
+                //     y = Math.floor(Math.random() * 20) + 1;
+                // }
+                // console.log(`x = ${x} e y ${y}`);
+                senha[i] = sorteiaCaractereEspecial();
             }
 
         case 2:
-            console.log("Opção 2");
+            for (let i = 0; i < senha.length; i++) {
+                senha[i] = sorteiaNúmero();
+            }
             break;
 
         case 3:
-            console.log("Opção 3");
+            for (let i = 0; i < senha.length; i++) {
+                senha[i] = sorteiaLetra();
+                senha[i] = senha[i].toUpperCase();
+            }
             break;
 
         default:
