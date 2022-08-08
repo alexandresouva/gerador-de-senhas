@@ -1,162 +1,115 @@
-var opcoesSenha;
-var senha = [];
-var arrSorteia = [];
+let password = [];
 
-function geraSenha() {
-    let tamanhoSenha = document.getElementById('pswLeght').value;
-    let qntSenhas = document.getElementById('pswQtd').value;
+function createPassword(){
+    password.length = document.getElementById("pswLeght").value;
+    let  qtyPassword = document.getElementById("pswQtd").value;
 
-    senha.length = tamanhoSenha;
-
-    for (let i = 0; i < senha.length; i++) {
-        senha[i] = sorteiaLetra();
+    for(let i = 0; i < password.length; i++){
+        password[i] = "";
     }
 
-    verificaCheckbox();
-    algoritmoSenha();
+    let answer = document.getElementById("answer");
+    answer.value = "";
+    passwordAlgorithm();
 
-    // switch (opcoesSenha) {
-    //     case 0:
-    //         for (let i = 0; i < senha.length; i++) {
-    //             senha[i] = sorteiaLetra();
-    //         }
-    //         break;
+    // var arrPasswords = [];
 
-    //     case 1:
-    //         for (let i = 0; i < senha.length; i++) {
-    //             senha[i] = sorteiaLetra();
-    //             senha[i] = senha[i].toUpperCase();
-    //         }
-
-    //     case 2:
-    //         console.log("Opção 2");
-    //         break;
-
-    //     case 3:
-    //         console.log("Opção 3");
-    //         break;
-
-    //     default:
-    //         console.log("Opção inválida");
-    //         break;
-
+    // for(let i = 0; i < qtyPassword; i++){
+    //     passwordAlgorithm();
+    //     arrPasswords.push(password);
     // }
-    console.log(senha);
+    // answer.value = arrPasswords;
 
-
-
-    // // Converte para letras maiúsculas
-    // for(i = 0; i < arrLetras.length; i++){
-    //     arrLetras[i] = arrLetras[i].toUpperCase();
-    // }
-
-    // // Sorteia letras
-    // for(i = 0; i < senha.length; i++){
-    //     let caractere = Math.floor(Math.random() * arrLetras.length);
-    //     senha[i] = arrLetras[caractere];
-    // }
-
-    // console.log(sorteiaCaractereEspecial());
-    // console.log(sorteiaNúmero());
-
-
-    // console.log(senha);
-
-
-    // let arrSenhas = [];
-    // arrSenhas.length = qntSenhas;
-}
-
-function sorteiaCaractereEspecial() {
-    let arrCaracteresEspeciais = ' !#$%&@'.split('');
-    for (let i = 0; i < 1; i++) {
-        var caractere = Math.floor(Math.random() * arrCaracteresEspeciais.length);
-        caractere = arrCaracteresEspeciais[caractere];
-    }
-    return caractere;
-}
-
-function sorteiaNúmero() {
-    let arrNumeros = '0123456789'.split('');
-    for (let i = 0; i < 1; i++) {
-        var caractere = Math.floor(Math.random() * arrNumeros.length);
-        caractere = arrNumeros[caractere];
-    }
-    return caractere;
-}
-
-function sorteiaLetra() {
-    let arrLetras = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    for (let i = 0; i < 1; i++) {
-        var caractere = Math.floor(Math.random() * arrLetras.length);
-        caractere = arrLetras[caractere];
-    }
-    return caractere;
-}
-
-function verificaCheckbox() {
-    let incluirCaractereEspecial = document.getElementById("special");
-    let incluirMaiusculas = document.getElementById("number");
-    let incluirNumeros = document.getElementById("upperCase");
-
-    opcoesSenha = 0;
-
-    if (incluirCaractereEspecial.checked) {
-        arrSorteia.push = sorteiaCaractereEspecial;
-        console.log(arrSorteia)
-    }
-
-    if (incluirMaiusculas.checked) {
-        opcoesSenha++;
-    }
-
-    if (incluirNumeros.checked) {
-        opcoesSenha++;
+    for(let i = 0; i < password.length; i++){
+        answer.value += password[i];
     }
 }
 
-function algoritmoSenha(){
-    let x = 0;
-    let y = 0;
-    let z = 0; 
+function passwordAlgorithm(){
+    let caracteres = checkConditions();
+    let lastPosition = caracteres.length - 1;
+    
+    let passwordSequency = numbersNotRepeat(password.length, password.length);
+    let caracteresSequency = numbersNotRepeat(password.length, caracteres[lastPosition].length);
 
-    for(let i = 0; i < opcoesSenha.length; i++){
+    let pS;
+    let cS;
+    let enter = true;
 
-    }
+    for(let i = 0; i < password.length; i++){
 
-    switch (opcoesSenha) {
-        case 0:
-            for (let i = 0; i < senha.length; i++) {
-                senha[i] = sorteiaLetra();
+        pS = passwordSequency [i];
+        cS = caracteresSequency[i];        
+
+        if(enter){
+            for(let j = 0; j < lastPosition; j++){
+                pS = passwordSequency[j];
+                let temp = caracteres[j].length;
+                let temp2 = getRandomNumber(temp);
+                password[pS] = caracteres[j].substring(temp2, temp2 + 1);
             }
-            break;
+            enter = false;
+        }
 
-        case 1:
-            for (let i = 0; i < senha.length; i++) {
-                // while ((x + y) != senha.length){
-                //     x = Math.floor(Math.random() * 3) + 1;
-                //     y = Math.floor(Math.random() * 20) + 1;
-                // }
-                // console.log(`x = ${x} e y ${y}`);
-                senha[i] = sorteiaCaractereEspecial();
-            }
-
-        case 2:
-            for (let i = 0; i < senha.length; i++) {
-                senha[i] = sorteiaNúmero();
-            }
-            break;
-
-        case 3:
-            for (let i = 0; i < senha.length; i++) {
-                senha[i] = sorteiaLetra();
-                senha[i] = senha[i].toUpperCase();
-            }
-            break;
-
-        default:
-            console.log("Opção inválida");
-            break;
-
+        if(password[pS] == ""){
+            password[pS] = caracteres[lastPosition].substring(cS, cS + 1);
+        }
     }
+}
+
+function checkConditions(){
+    
+    let symbolsCheckbox = document.getElementById("special");
+    let uppercaseCheckbox = document.getElementById("upperCase");
+    let numbersCheckbox = document.getElementById("number");
+
+    let lowcaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+    let uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let numbers = '0123456789';
+    let symbols = '!#$%&@';
+
+    let caracteres = [lowcaseLetters];
+
+    if (symbolsCheckbox.checked) {
+        caracteres.push(symbols);
+    }
+
+    if (numbersCheckbox.checked) {
+        caracteres.push(numbers);
+    }
+
+    if (uppercaseCheckbox.checked) {
+        caracteres.push(uppercaseLetters);
+    }
+
+    let temp = '';
+    for(let i = 0; i < caracteres.length; i++){
+        temp += caracteres[i];
+    }
+
+    caracteres.push(temp);
+
+    return caracteres;
+}   
+
+function getRandomNumber(maxNumber){
+    let randomNumber = Math.floor(Math.random() * maxNumber);
+    return randomNumber;
+}
+
+function numbersNotRepeat (arrLength, maxNumber){    
+    let randomNumber;
+    let numbersNotRepeat = [];
+
+    for (let i = 0; i < arrLength; i++){
+        randomNumber = getRandomNumber(maxNumber);
+
+        if(numbersNotRepeat.indexOf(randomNumber) == -1){
+            numbersNotRepeat.push(randomNumber);
+        } else {
+            i--;
+        }
+    }
+
+    return numbersNotRepeat;
 }
